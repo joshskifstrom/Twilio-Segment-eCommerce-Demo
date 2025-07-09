@@ -2006,7 +2006,7 @@
             console.log('Loading all segment data...');
             console.log('Current anonymous ID:', getCurrentAnonymousID());
             console.log('Panels available:', panels);
-            const baseUrl = window.SEGMENT_PROXY_URL || 'http://localhost:3001';
+            const baseUrl = window.SEGMENT_PROXY_URL || '/api/proxy';
             fetchAndDisplay(`${baseUrl}/segment-identifiers`, panels.identifiers, 'Digital Identity', true);
             fetchAndDisplay(`${baseUrl}/segment-traits`, panels.traits, 'Personalization', false, true);
             fetchAndDisplay(`${baseUrl}/segment-events`, panels.events, 'Behavior', false, false, true);

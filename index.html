@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets | Pet Supplies, Pet Food, and Pet Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pets-blue: #003da5;
+            --pets-red: #e31837;
+            --pets-light: #f7f7f7;
+            --pets-dark: #222;
+            --pets-accent: #60a5fa;
+            --pets-gradient: linear-gradient(90deg, #e31837 0%, #003da5 100%);
+            --card-shadow: 0 4px 24px rgba(0,61,165,0.10);
+            --card-hover-shadow: 0 8px 32px rgba(0,61,165,0.18);
+            --transition: 0.25s cubic-bezier(.4,2,.6,1);
+        }
+        * { box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: var(--pets-light);
+            color: var(--pets-dark);
+            background: linear-gradient(135deg, #f7f7f7 60%, #e3eafc 100%);
+        }
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            height: 72px;
+            justify-content: space-between;
+            z-index: 10;
+            box-shadow: 0 2px 12px rgba(0,61,165,0.04);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--pets-blue);
+            letter-spacing: -0.03em;
+            text-decoration: none;
+            text-shadow: 0 2px 8px rgba(0,61,165,0.08);
+        }
+        .logo span {
+            color: var(--pets-red);
+            margin-left: 2px;
+        }
+        .nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav a {
+            color: var(--pets-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08rem;
+            transition: color var(--transition);
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            letter-spacing: 0.01em;
+        }
+        .nav a:hover, .nav a:focus {
+            color: var(--pets-blue);
+            border-bottom: 2px solid var(--pets-blue);
+            background: #f4f8ff;
+            border-radius: 4px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .search-box {
+            border: 1.5px solid #d1d5db;
+            border-radius: 24px;
+            padding: 7px 16px;
+            font-size: 1rem;
+            outline: none;
+            width: 200px;
+            transition: border var(--transition), box-shadow var(--transition);
+            background: #f9fafb;
+        }
+        .search-box:focus {
+            border: 2px solid var(--pets-blue);
+            box-shadow: 0 2px 8px #60a5fa33;
+            background: #fff;
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--pets-dark);
+            margin-left: 2px;
+            transition: color var(--transition), transform var(--transition);
+        }
+        .icon-btn:hover, .icon-btn:focus {
+            color: var(--pets-blue);
+            transform: scale(1.15);
+        }
+        /* Promo Banner */
+        .promo-banner {
+            background: #333 !important;
+            color: #fff;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 12px 0;
+            letter-spacing: 0.01em;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 0;
+        }
+        .promo-banner strong {
+            color: #fff200;
+        }
+        /* Hero Carousel */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            overflow: hidden;
+            border-radius: 22px;
+            box-shadow: var(--card-shadow);
+            background: #fff;
+            animation: fadeIn 1.2s cubic-bezier(.4,2,.6,1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: none; }
+        }
+        .carousel-slide {
+            display: none;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 56px 56px 44px 56px;
+            min-height: 340px;
+        }
+        .carousel-slide.active {
+            display: flex;
+            animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .carousel-content {
+            flex: 1;
+            min-width: 220px;
+        }
+        .carousel-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: var(--pets-blue);
+            letter-spacing: -0.01em;
+        }
+        .carousel-desc {
+            font-size: 1.22rem;
+            margin-bottom: 32px;
+            font-weight: 400;
+            color: #333;
+            max-width: 440px;
+        }
+        .carousel-btn {
+            background: var(--pets-red);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 14px 38px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background var(--transition), color var(--transition), transform var(--transition);
+        }
+        .carousel-btn:hover, .carousel-btn:focus {
+            background: var(--pets-blue);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .carousel-img {
+            width: 340px;
+            height: 230px;
+            object-fit: contain;
+            margin-left: 36px;
+            border-radius: 14px;
+            background: #f7f7f7;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .carousel-controls {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+        .carousel-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition);
+        }
+        .carousel-dot.active {
+            background: var(--pets-red);
+            transform: scale(1.18);
+        }
+        /* Featured Deals */
+        .featured-deals, .pet-type-deals {
+            max-width: 1200px;
+            margin: 48px auto 0 auto;
+            padding: 0 16px;
+        }
+        .pet-type-deals {
+            margin-top: 32px;
+        }
+        .deals-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .deals-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: flex-start;
+        }
+        .deal-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            width: 220px;
+            text-align: left;
+            padding: 18px 14px 16px 14px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+            border: 1.5px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .deal-card:hover {
+            box-shadow: 0 8px 24px rgba(0,61,165,0.13);
+            transform: translateY(-4px) scale(1.03);
+            border: 1.5px solid var(--pets-blue);
+        }
+        .deal-img {
+            width: 100%;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background: #f7f7f7;
+        }
+        .deal-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #000 !important;
+            margin-bottom: 4px;
+        }
+        .deal-desc {
+            font-size: 0.97rem;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .deal-price {
+            font-size: 1.1rem;
+            color: #000 !important;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+        .deal-loyalty {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .deal-loyalty::before {
+            content: "★";
+            color: #fbbf24;
+            font-size: 0.9rem;
+        }
+        /* Deals by Pet Type */
+        .pet-type-deals {
+            max-width: 1200px;
+            margin: 48px auto 0 auto;
+            padding: 0 16px;
+        }
+        /* Categories */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin: 48px auto 0 auto;
+            max-width: 1100px;
+        }
+        .category-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            width: 220px;
+            text-align: center;
+            padding: 28px 18px 22px 18px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+            border: 1.5px solid #f0f0f0;
+        }
+        .category-card:hover {
+            box-shadow: 0 8px 24px rgba(0,61,165,0.13);
+            transform: translateY(-4px) scale(1.03);
+            border: 1.5px solid var(--pets-blue);
+        }
+        .category-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 18px;
+        }
+        .category-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--pets-blue);
+            margin-bottom: 6px;
+        }
+        .category-desc {
+            font-size: 0.98rem;
+            color: #444;
+            margin-bottom: 0;
+        }
+        /* Footer */
+        .footer {
+            background: var(--footer-bg);
+            color: #444;
+            text-align: left;
+            padding: 40px 0 18px 0;
+            margin-top: auto;
+            font-size: 1rem;
+            border-top: 1px solid #e5e5e5;
+            width: 100%;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+        .footer-col {
+            min-width: 180px;
+            margin-bottom: 18px;
+        }
+        .footer-col h4 {
+            color: #000;
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.98rem;
+            transition: color 0.2s;
+        }
+        .footer-col ul li a:hover {
+            color: var(--pets-red);
+        }
+        .footer-bottom {
+            text-align: center;
+            color: #888;
+            font-size: 0.97rem;
+            margin-top: 24px;
+        }
+        .footer-signup {
+            margin-top: 8px;
+            background: #002868;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,61,165,0.07);
+            padding: 18px 22px 18px 22px;
+            max-width: 340px;
+        }
+        .footer-signup label {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.08rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .footer-signup input[type="email"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            outline: none;
+            transition: border 0.2s;
+            background: #fff;
+            color: #002868;
+        }
+        .footer-signup input[type="email"]:focus {
+            border: 2px solid #60a5fa;
+        }
+        .footer-signup button {
+            background: #fff;
+            color: #002868;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            padding: 8px 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .footer-signup button:hover {
+            background: #f0f0f0;
+        }
+        .footer-signup-success {
+            color: var(--pets-blue);
+            font-size: 1rem;
+            margin-top: 8px;
+            display: none;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s, color 0.2s;
+        }
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--pets-blue);
+            margin-bottom: 16px;
+            padding-right: 40px;
+        }
+        .modal-description {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .modal-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--pets-blue);
+            margin-bottom: 24px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .modal-btn.primary {
+            background: var(--pets-red);
+            color: #fff;
+        }
+        .modal-btn.primary:hover {
+            background: #c41230;
+            transform: translateY(-1px);
+        }
+        .modal-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .modal-btn.secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
+        }
+        /* Customer Profile Layer */
+        .customer-profile-layer {
+            position: fixed;
+            bottom: 20px;
+            left: 100px;
+            width: 350px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            transform: translateY(100%);
+            transition: transform 0.3s ease, height 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .customer-profile-layer.active {
+            transform: translateY(0);
+        }
+
+        .customer-profile-layer.minimized {
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .customer-profile-layer.minimized .profile-content {
+            display: none;
+        }
+
+        .profile-header {
+            background: #333;
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .profile-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            margin-left: 8px;
+        }
+
+        .profile-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-section {
+            margin-bottom: 20px;
+        }
+
+        .profile-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .profile-value {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .profile-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .profile-status.active {
+            background: #e8f5e8;
+            color: #2d5a2d;
+        }
+
+        .profile-status.inactive {
+            background: #ffe8e8;
+            color: #5a2d2d;
+        }
+        .modal-tab.active {
+            border-bottom: 3px solid #60a5fa;
+            color: #3b82f6;
+            background: #f4f4f4;
+        }
+
+        #segment-modal {
+            transition: box-shadow 0.2s;
+        }
+
+        #segment-modal:focus-within {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+        }
+
+        .modal-panel {
+            margin: 0 auto;
+            max-width: 95%;
+        }
+
+        .modal-section {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            margin-bottom: 18px;
+            padding: 18px 16px 12px 16px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .modal-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: #181818;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            font-family: inherit;
+        }
+
+        .modal-panel pre {
+            background: #181818;
+            color: #fffbf0;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 1rem;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+            overflow-x: auto;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .json-property { color: #60a5fa; }
+        .json-string { color: #60a5fa; }
+        .json-number { color: #64748b; }
+        .json-boolean { color: #93c5fd; }
+        .json-null { color: #b3b3b3; }
+
+        .modal-tab {
+            flex: 1;
+            padding: 12px 0;
+            margin: 0 6px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #222;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .modal-tab:hover {
+            background: #e8f0fe;
+            color: #60a5fa;
+        }
+
+        .modal-tab.active {
+            background: #60a5fa;
+            color: #fff;
+            border-bottom: 3px solid #60a5fa;
+            z-index: 1;
+        }
+
+        /* Modal styles and overrides */
+        #segment-modal, .modal-section, .modal-tab, .modal-panel, .event-toggle, .event-row, .modal-section h3 {
+            font-family: 'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+        }
+
+        .section-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 24px 0 12px 0;
+            padding: 8px 0;
+            color: #60a5fa;
+            border-bottom: 2px solid #eee;
+        }
+
+        .warehouse-section {
+            margin: 16px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #60a5fa;
+        }
+        @media (max-width: 900px) {
+            .categories, .deals-grid {
+                gap: 18px;
+            }
+            .category-card, .deal-card {
+                width: 44vw;
+                min-width: 160px;
+                padding: 18px 6px 14px 6px;
+            }
+            .header {
+                flex-direction: column;
+                height: auto;
+                padding: 12px 8px;
+                gap: 8px;
+            }
+            .nav {
+                gap: 14px;
+            }
+            .hero-carousel {
+                padding: 0 8px;
+            }
+            .carousel-slide {
+                flex-direction: column;
+                padding: 32px 12px 24px 12px;
+                text-align: center;
+            }
+            .carousel-img {
+                margin-left: 0;
+                margin-top: 18px;
+                width: 90vw;
+                max-width: 320px;
+            }
+        }
+        @media (max-width: 600px) {
+            .categories, .deals-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .category-card, .deal-card {
+                width: 90vw;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-desc {
+                font-size: 1rem;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 18px;
+                padding: 0 12px;
+            }
+            .footer-signup {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Anonymous ID Dropdown Panel -->
+    <div id="anonymous-id-dropdown" style="display:none;position:absolute;top:72px;right:120px;width:320px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:1002;border:1px solid #e5e7eb;overflow:hidden;">
+        <div style="background:#181818;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:600;font-size:1rem;">Anonymous ID</span>
+            <button onclick="toggleAnonymousIDDropdown()" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">&times;</button>
+        </div>
+        <div style="padding:16px;">
+            <div style="margin-bottom:12px;">
+                <span style="font-weight:600;color:#374151;font-size:0.9rem;">Current ID:</span>
+                <span style="color:#6b7280;font-size:0.9rem;margin-left:8px;" id="anonymous-id-dropdown-display">Loading...</span>
+            </div>
+            <div>
+                <input type="text" id="custom-anonymous-id-dropdown" placeholder="Enter custom ID" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9rem;margin-bottom:8px;box-sizing:border-box;background:#fff;">
+                <button onclick="setCustomAnonymousIDFromDropdown()" style="background:var(--pets-blue);color:#fff;border:none;border-radius:6px;padding:8px 12px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;width:100%;margin-bottom:8px;">Set Custom ID</button>
+                <button onclick="resetAnonymousIDFromDropdown()" style="background:var(--pets-red);color:#fff;border:none;border-radius:6px;padding:8px 12px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;width:100%;">Reset to Random ID</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Place the toggle button inside the header actions, between Account and Cart -->
+    <header class="header" style="background:#333; color:#fff; display:flex; align-items:center; height:72px; padding:0 32px; justify-content:space-between; border:none; box-shadow:none;">
+        <div style="display:flex; align-items:center; gap:18px;">
+            <button style="background:none; border:none; color:#fff; font-size:2.2rem; cursor:pointer; margin-right:8px;">&#9776;</button>
+            <a href="#" class="logo" style="display:flex; align-items:center; font-size:2.2rem; font-weight:800; color:#fff; letter-spacing:-0.03em; text-decoration:none; gap:8px;">
+                pawfect pals
+                <img src="images/category-dog.png" alt="Pets Mascot" style="height:36px; margin-left:6px; vertical-align:middle; border-radius:50%; object-fit:cover;">
+            </a>
+        </div>
+        <input class="search-box" type="text" placeholder="Search..." style="background:#fff; color:#222; border-radius:6px; border:none; padding:12px 18px; font-size:1.1rem; width:340px; font-weight:500; margin:0 32px 0 32px; box-shadow:none; outline:none;">
+        <div style="display:flex; align-items:center; gap:18px;">
+            <button class="icon-btn" title="Account" style="background:none; border:2px solid #fff; color:#fff; border-radius:7px; padding:8px 22px; font-size:1.15rem; font-weight:600; display:flex; align-items:center; gap:8px; transition:background 0.2s, color 0.2s;">
+                <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Account
+            </button>
+            <button class="icon-btn" title="Cart" onclick="openCartModal()" style="background:none; border:none; color:#fff; font-size:2rem; position:relative;">
+                <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+            <button id="anonymous-id-toggle-btn" onclick="toggleAnonymousIDDropdown()" style="background:#111;color:#fff;border:none;border-radius:50%;width:40px;height:40px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold;">ID</button>
+        </div>
+    </header>
+    <!-- End header -->
+    <div class="promo-banner" style="background:#002868; color:#fff; text-align:center; font-weight:700; font-size:1.1rem; letter-spacing:0.01em; padding:10px 0 8px 0; position:relative;"></div>
+    <!-- Promo Banner: 10% Off Orders $50+ -->
+    <section class="custom-promo-banner" style="background:#333; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 32px; min-height:110px; border-bottom:3px solid #fff;">
+        <div style="display:flex; align-items:center; gap:32px;">
+            <div style="background:#8ed8f8; border-radius:50%; width:110px; height:110px; display:flex; align-items:center; justify-content:center; margin-left:18px; border:4px solid #333;">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="13" y="20" width="34" height="28" rx="4" stroke="#002868" stroke-width="3" fill="#8ed8f8"/>
+                    <path d="M20 20V16C20 11.5817 23.5817 8 28 8V8C32.4183 8 36 11.5817 36 16V20" stroke="#002868" stroke-width="3"/>
+                    <path d="M30 34L27 37L30 40" stroke="#002868" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M27 37H37" stroke="#002868" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-size:1.25rem; font-weight:600; color:#60a5fa; font-style:italic;">Ready in 1 Hour!</span>
+                <span style="font-size:2.5rem; font-weight:900; letter-spacing:-1px; line-height:1;">10% OFF ORDERS <span style="font-size:2rem; font-weight:700;">$50+</span></span>
+                <span style="font-size:1.15rem; font-style:italic; margin-top:2px;">Place it online. We pack it. You pick it up in store.</span>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; margin-right:48px;">
+            <a href="#" style="background:#fff; color:#333; font-weight:600; border:2px solid #fff; border-radius:7px; padding:8px 22px; font-size:1.15rem; text-decoration:none; transition:background 0.2s, color 0.2s; margin-bottom:0; display:inline-block; text-align:center;">SHOP NOW</a>
+        </div>
+    </section>
+    <section class="hero-carousel">
+        <div class="carousel-slide active">
+            <div class="carousel-content">
+                <div class="carousel-title">Summer Savings for Every Pet</div>
+                <div class="carousel-desc">Get up to 30% off select food, treats, and supplies for dogs, cats, and more. Shop our hottest deals of the season!</div>
+                <button class="carousel-btn">Shop Summer Deals</button>
+            </div>
+            <img class="carousel-img" src="images/dog-food.jpg" alt="Summer Dog Deals">
+        </div>
+        <div class="carousel-slide">
+            <div class="carousel-content">
+                <div class="carousel-title">Grooming & Vet Services</div>
+                <div class="carousel-desc">Book a grooming appointment or find a vet near you. Keep your pet healthy and happy with Pets services.</div>
+                <button class="carousel-btn">Book Now</button>
+            </div>
+            <img class="carousel-img" src="images/cat-litter.jpg" alt="Grooming Cat">
+        </div>
+        <div class="carousel-slide">
+            <div class="carousel-content">
+                <div class="carousel-title">Pharmacy & Wellness</div>
+                <div class="carousel-desc">Shop prescription food, medications, and wellness essentials for your pet, all in one place.</div>
+                <button class="carousel-btn">Shop Pharmacy</button>
+            </div>
+            <img class="carousel-img" src="images/aquarium.jpg" alt="Pet Pharmacy">
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-dot active" onclick="showSlide(0)"></button>
+            <button class="carousel-dot" onclick="showSlide(1)"></button>
+            <button class="carousel-dot" onclick="showSlide(2)"></button>
+        </div>
+    </section>
+    <section class="featured-deals">
+        <div class="deals-title">Featured Deals</div>
+        <div class="deals-grid" id="featured-deals-grid">
+            <div class="deal-card" data-pet-type="dog" onclick="event.stopPropagation(); openModal('Dog Food Sale', 'Save 20% on select premium dog food brands. Perfect for your furry friend\'s nutrition needs.', 'From $19.99')">
+                <img class="deal-img" src="images/dog-food.jpg" alt="Dog Food">
+                <div class="deal-title">Dog Food Sale</div>
+                <div class="deal-desc">Save 20% on select premium dog food brands.</div>
+                <div class="deal-price">From $19.99</div>
+                <div class="deal-loyalty">1,999 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="cat" onclick="openModal('Cat Litter Savings', 'Buy 2, get 1 free on select cat litter. Keep your home clean and your cat happy.', 'From $12.99')">
+                <img class="deal-img" src="images/cat-litter.jpg" alt="Cat Litter">
+                <div class="deal-title">Cat Litter Savings</div>
+                <div class="deal-desc">Buy 2, get 1 free on select cat litter.</div>
+                <div class="deal-price">From $12.99</div>
+                <div class="deal-loyalty">1,299 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="fish" onclick="openModal('Aquarium Kits', 'Up to 25% off select tanks & décor. Create the perfect underwater world for your fish.', 'From $29.99')">
+                <img class="deal-img" src="images/aquarium.jpg" alt="Aquarium Kit">
+                <div class="deal-title">Aquarium Kits</div>
+                <div class="deal-desc">Up to 25% off select tanks & décor.</div>
+                <div class="deal-price">From $29.99</div>
+                <div class="deal-loyalty">2,999 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="bird" onclick="openModal('Bird Cages & Toys', 'Save on cages, perches, and toys for your feathered friends. Everything they need to stay happy and healthy.', 'From $15.99')">
+                <img class="deal-img" src="images/bird-cage.jpg" alt="Bird Cage">
+                <div class="deal-title">Bird Cages & Toys</div>
+                <div class="deal-desc">Save on cages, perches, and toys for your feathered friends.</div>
+                <div class="deal-price">From $15.99</div>
+                <div class="deal-loyalty">1,599 Loyalty Points</div>
+            </div>
+        </div>
+    </section>
+    <section class="pet-type-deals">
+        <div class="deals-title">Deals By Pet Type</div>
+        <div class="deals-grid" id="pet-type-deals-grid">
+            <!-- Dog-specific deals -->
+            <div class="deal-card" data-pet-type="dog" onclick="openModal('Dog Toys Bundle', 'Get 30% off premium dog toys including chew toys, interactive puzzles, and fetch balls.', 'From $24.99')">
+                <img class="deal-img" src="images/dog_toy_bundles.png" alt="Dog Toys">
+                <div class="deal-title">Dog Toys Bundle</div>
+                <div class="deal-desc">30% off premium dog toys & interactive puzzles.</div>
+                <div class="deal-price">From $24.99</div>
+                <div class="deal-loyalty">2,499 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="dog" onclick="openModal('Dog Grooming Kit', 'Complete grooming kit with brushes, shampoo, and nail clippers. Perfect for at-home care.', 'From $39.99')">
+                <img class="deal-img" src="images/dog_grooming_kit.png" alt="Dog Grooming">
+                <div class="deal-title">Dog Grooming Kit</div>
+                <div class="deal-desc">Complete grooming kit with brushes & shampoo.</div>
+                <div class="deal-price">From $39.99</div>
+                <div class="deal-loyalty">3,999 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="dog" onclick="openModal('Dog Training Treats', 'High-quality training treats made with real meat. Perfect for obedience training.', 'From $14.99')">
+                <img class="deal-img" src="images/dog_training_treats.png" alt="Dog Treats">
+                <div class="deal-title">Dog Training Treats</div>
+                <div class="deal-desc">High-quality treats made with real meat.</div>
+                <div class="deal-price">From $14.99</div>
+                <div class="deal-loyalty">1,499 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="dog" onclick="openModal('Dog Bed & Crate', 'Comfortable dog bed with matching crate. Great for crate training and comfort.', 'From $59.99')">
+                <img class="deal-img" src="images/dog_bed_crate.png" alt="Dog Bed">
+                <div class="deal-title">Dog Bed & Crate</div>
+                <div class="deal-desc">Comfortable bed with matching crate.</div>
+                <div class="deal-price">From $59.99</div>
+                <div class="deal-loyalty">5,999 Loyalty Points</div>
+            </div>
+            
+            <!-- Cat-specific deals (hidden by default) -->
+            <div class="deal-card" data-pet-type="cat" style="display: none;" onclick="openModal('Cat Food Variety Pack', 'Assorted premium cat food flavors. Find your cat\'s favorite!', 'From $18.99')">
+                <img class="deal-img" src="images/cat-litter.jpg" alt="Cat Food">
+                <div class="deal-title">Cat Food Variety Pack</div>
+                <div class="deal-desc">Assorted premium cat food flavors.</div>
+                <div class="deal-price">From $18.99</div>
+                <div class="deal-loyalty">1,899 Loyalty Points</div>
+            </div>
+            <div class="deal-card" data-pet-type="cat" style="display: none;" onclick="openModal('Cat Tree & Scratching Post', 'Multi-level cat tree with scratching posts and perches.', 'From $79.99')">
+                <img class="deal-img" src="images/cat-litter.jpg" alt="Cat Tree">
+                <div class="deal-title">Cat Tree & Scratching Post</div>
+                <div class="deal-desc">Multi-level cat tree with scratching posts.</div>
+                <div class="deal-price">From $79.99</div>
+                <div class="deal-loyalty">7,999 Loyalty Points</div>
+            </div>
+            
+            <!-- Fish-specific deals (hidden by default) -->
+            <div class="deal-card" data-pet-type="fish" style="display: none;" onclick="openModal('Fish Food & Supplements', 'Complete nutrition for your aquatic friends.', 'From $12.99')">
+                <img class="deal-img" src="images/aquarium.jpg" alt="Fish Food">
+                <div class="deal-title">Fish Food & Supplements</div>
+                <div class="deal-desc">Complete nutrition for your aquatic friends.</div>
+                <div class="deal-price">From $12.99</div>
+                <div class="deal-loyalty">1,299 Loyalty Points</div>
+            </div>
+            
+            <!-- Bird-specific deals (hidden by default) -->
+            <div class="deal-card" data-pet-type="bird" style="display: none;" onclick="openModal('Bird Food & Treats', 'Nutritious seeds and treats for your feathered friends.', 'From $9.99')">
+                <img class="deal-img" src="images/bird-cage.jpg" alt="Bird Food">
+                <div class="deal-title">Bird Food & Treats</div>
+                <div class="deal-desc">Nutritious seeds and treats for birds.</div>
+                <div class="deal-price">From $9.99</div>
+                <div class="deal-loyalty">999 Loyalty Points</div>
+            </div>
+        </div>
+    </section>
+    <section class="categories">
+        <div class="category-card">
+            <img class="category-img" src="images/category-dog.png" alt="Dog">
+            <div class="category-title">Dog</div>
+            <div class="category-desc">Food, treats, toys, beds & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-cat.png" alt="Cat">
+            <div class="category-title">Cat</div>
+            <div class="category-desc">Litter, food, furniture & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-fish.png" alt="Fish">
+            <div class="category-title">Fish</div>
+            <div class="category-desc">Aquariums, food, décor & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-bird.png" alt="Bird">
+            <div class="category-title">Bird</div>
+            <div class="category-desc">Cages, food, toys & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-reptile.png" alt="Reptile">
+            <div class="category-title">Reptile</div>
+            <div class="category-desc">Habitats, food, heating & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-small-pet.png" alt="Small Pet">
+            <div class="category-title">Small Pet</div>
+            <div class="category-desc">Cages, bedding, food & more</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-pharmacy.png" alt="Pharmacy">
+            <div class="category-title">Pharmacy</div>
+            <div class="category-desc">Rx, supplements, flea & tick</div>
+        </div>
+        <div class="category-card">
+            <img class="category-img" src="images/category-services.png" alt="Pet Services">
+            <div class="category-title">Pet Services</div>
+            <div class="category-desc">Grooming, training, vet & more</div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Dog</a></li>
+                    <li><a href="#">Cat</a></li>
+                    <li><a href="#">Fish</a></li>
+                    <li><a href="#">Bird</a></li>
+                    <li><a href="#">Reptile</a></li>
+                    <li><a href="#">Small Pet</a></li>
+                    <li><a href="#">Pharmacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>About Pets</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investors</a></li>
+                    <li><a href="#">Pets Foundation</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li>Phone: 1-877-738-6742</li>
+                    <li>Email: support@pets.com</li>
+                </ul>
+            </div>
+            <div class="footer-col footer-signup">
+                <form id="signup-form" onsubmit="return handleSignup(event)">
+                    <label for="signup-email">Keep in Touch</label>
+                    <input type="email" id="signup-email" name="signup-email" placeholder="Enter your email address" required>
+                    <button type="submit">Sign Up</button>
+                    <div class="footer-signup-success" id="signup-success">Thank you for subscribing!</div>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Pets Animal Supplies, Inc. All rights reserved. | This is a demo site inspired by <a href="https://www.pets.com/shop/en/petsstore" target="_blank" style="color:#003da5;text-decoration:underline;">pets.com</a>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-title" id="modal-title">Product Details</div>
+            <div class="modal-description" id="modal-description">Product description will appear here.</div>
+            <div class="modal-price" id="modal-price">$0.00</div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="addToCart()">Add to Cart</button>
+                <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Profile Layer -->
+    <div class="customer-profile-layer" id="customer-profile-layer">
+        <div class="profile-header" onclick="toggleProfileLayer()">
+            <h3 class="profile-title">Personalized Parent Profile</h3>
+            <div>
+                <button class="profile-toggle" onclick="event.stopPropagation(); toggleProfileLayer()" title="Minimize/Expand">−</button>
+                <button class="profile-toggle" onclick="event.stopPropagation(); closeProfileLayer()" title="Close">×</button>
+            </div>
+        </div>
+        <div class="profile-content">
+            <div class="profile-section" id="customer-info-section" style="display: none;">
+                <div class="profile-section-title">Customer Information</div>
+                <div class="profile-item">
+                    <span class="profile-label">Customer ID:</span>
+                    <span class="profile-value">CUST-2024-001</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Name:</span>
+                    <span class="profile-value">John Smith</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Email:</span>
+                    <span class="profile-value">john.smith@email.com</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Status:</span>
+                    <span class="profile-status active" style="color:#10b981; font-size:0.9rem;">Active</span>
+                </div>
+            </div>
+            
+            <div class="profile-section" id="pet-info-section" style="display: none;">
+                <div class="profile-section-title">Pet Information</div>
+                <div class="profile-item">
+                    <span class="profile-label">Primary Pet:</span>
+                    <span class="profile-value">Golden Retriever</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Pet Age:</span>
+                    <span class="profile-value">3 years</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Pet Status:</span>
+                    <span class="profile-status active" style="color:#10b981; font-size:0.9rem;">Healthy</span>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-section-title">Shopping History</div>
+                <div class="profile-item">
+                    <span class="profile-label">Last Purchase:</span>
+                    <span class="profile-value">Premium Dog Food - 2 days ago</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Total Orders:</span>
+                    <span class="profile-value">23</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Lifetime Value:</span>
+                    <span class="profile-value">$1,247.50</span>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-section-title">Loyalty Points</div>
+                <div class="profile-item">
+                    <span class="profile-label">Current Balance:</span>
+                    <span class="profile-value" style="color: #8B5A2B; font-weight: 700;">★ 3,247 points</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Points Earned This Month:</span>
+                    <span class="profile-value">+156 points</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Next Reward:</span>
+                    <span class="profile-value">$10 off at 5,000 points</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anonymous ID Window -->
+    <div id="anonymous-id-window" style="display:none;position:fixed;top:16px;right:120px;width:320px;max-width:95vw;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);z-index:1002;flex-direction:column;overflow:hidden;border:1px solid #e5e7eb;transition:all 0.3s ease;">
+        <div style="background:#181818;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;border-radius:16px 16px 0 0;cursor:pointer;" onclick="toggleAnonymousIDWindow()">
+            <span style="font-weight:700;font-size:1.2rem;">Anonymous ID Manager</span>
+            <button onclick="closeAnonymousIDWindow()" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">&times;</button>
+        </div>
+        <div id="anonymous-id-content" style="flex:1;overflow:auto;background:#fafbfc;padding:18px 16px 16px 16px;display:none;">
+            <div style="margin-bottom:16px;">
+                <span style="font-weight:600;color:#374151;font-size:0.95rem;">Current ID:</span>
+                <span style="color:#6b7280;font-size:0.95rem;margin-left:8px;" id="anonymous-id-window-display">Loading...</span>
+            </div>
+            <div style="margin-bottom:16px;">
+                <input type="text" id="custom-anonymous-id" placeholder="Enter custom ID" style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.9rem;margin-bottom:12px;box-sizing:border-box;background:#fff;">
+                <button onclick="setCustomAnonymousID()" style="background:var(--pets-blue);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;width:100%;margin-bottom:12px;">Set Custom ID</button>
+                <button onclick="resetAnonymousID()" style="background:var(--pets-red);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;width:100%;">Reset to Random ID</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anonymous ID Window Toggle Button -->
+    <button id="anonymous-id-toggle-btn" onclick="toggleAnonymousIDWindow()" style="position:fixed;top:16px;right:460px;z-index:1001;background:#111;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;font-weight:bold;">
+        ID
+    </button>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cart-modal-overlay">
+        <div class="modal-content" style="max-width: 480px;">
+            <button class="modal-close" onclick="closeCartModal()">&times;</button>
+            <div class="modal-title">Your Cart</div>
+            <div id="cart-items-list" style="margin-bottom: 18px;"></div>
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="modal-btn secondary" onclick="closeCartModal()">Continue Shopping</button>
+                <button class="modal-btn primary" onclick="openCheckoutModal()" id="checkout-btn" disabled>Checkout</button>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal-overlay">
+        <div class="modal-content" style="max-width: 480px;">
+            <button class="modal-close" onclick="closeCheckoutModal()">&times;</button>
+            <div class="modal-title">Checkout</div>
+            <form id="checkout-form" onsubmit="return handleCheckout(event)">
+                <div style="margin-bottom: 14px;">
+                    <label>Credit Card Number</label><br>
+                    <input type="text" id="cc-number" maxlength="19" pattern="[0-9 ]{13,19}" placeholder="1234 5678 9012 3456" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                </div>
+                <div style="margin-bottom: 14px;">
+                    <label>Phone</label><br>
+                    <input type="tel" id="phone" placeholder="555-123-4567" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                </div>
+                <div style="margin-bottom: 18px;">
+                    <label>Email</label><br>
+                    <input type="email" id="checkout-email" placeholder="you@email.com" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                </div>
+                <div style="margin-bottom: 18px; display: flex; align-items: center;">
+                    <input type="checkbox" id="checkout-email-optin" style="margin-right: 8px;">
+                    <label for="checkout-email-optin" style="margin: 0;">Email Opt In</label>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" class="modal-btn secondary" onclick="closeCheckoutModal()">Cancel</button>
+                    <button type="submit" class="modal-btn primary">Complete Purchase</button>
+                </div>
+            </form>
+            <div id="checkout-success" style="display:none; color: var(--pets-blue); font-size: 1.1rem; margin-top: 18px; text-align: center;">Thank you for your purchase!</div>
+        </div>
+    </div>
+
+    <script>
+        // Simple carousel logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === idx);
+                dots[i].classList.toggle('active', i === idx);
+            });
+            currentSlide = idx;
+        }
+        // Auto-advance carousel every 6 seconds
+        setInterval(() => {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }, 6000);
+        // Expose showSlide to global for inline onclick
+        window.showSlide = showSlide;
+
+        // Modal variables - defined after DOM is ready
+        let modal, openBtn, closeBtn, tabs, panels, loading;
+
+        // Initialize modal variables when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            modal = document.getElementById('segment-modal');
+            openBtn = document.getElementById('open-modal-btn');
+            closeBtn = document.getElementById('close-modal-btn');
+            tabs = document.querySelectorAll('.modal-tab');
+            panels = {
+                identifiers: document.getElementById('identifiers-panel'),
+                traits: document.getElementById('traits-panel'),
+                events: document.getElementById('events-panel'),
+                warehouse: document.getElementById('warehouse-panel')
+            };
+            loading = document.getElementById('modal-loading');
+
+            // Set up modal event listeners
+            if (openBtn) {
+                openBtn.addEventListener('click', showModal);
+            }
+            if (closeBtn) {
+                closeBtn.onclick = hideModal;
+            }
+            if (tabs) {
+                tabs.forEach(tab => {
+                    tab.onclick = () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        Object.keys(panels).forEach(key => {
+                            panels[key].style.display = (tab.dataset.tab === key) ? 'block' : 'none';
+                        });
+                        if (tab.dataset.tab === 'warehouse') {
+                            renderWarehousePanel();
+                        }
+                    };
+                });
+            }
+        });
+
+        // Email signup logic
+        function handleSignup(event) {
+            event.preventDefault();
+            const email = document.getElementById('signup-email').value.trim();
+            
+            if (!email) {
+                console.log('Please enter your email before opting in.');
+                return;
+            }
+            
+            // Send to Segment API
+            sendEmailOptInToSegment(email);
+            
+            // Show success message
+            document.getElementById('signup-success').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('signup-success').style.display = 'none';
+            }, 3500);
+            document.getElementById('signup-form').reset();
+        }
+
+        // Send email opt-in to Segment API
+        function sendEmailOptInToSegment(email) {
+            const anonymousId = getCurrentAnonymousID();
+            console.log('Using anonymous ID:', anonymousId);
+            
+            const segmentData = {
+                "type": "track",
+                "event": "Email Opted In",
+                "anonymousId": anonymousId,
+                "properties": {
+                    "opt_in_source": "Pet Profile Sign-Up",
+                    "email": email,
+                    "loyalty_member": true,
+                    "pet_type": "dog",
+                    "store_preference": "Main Pets Store"
+                }
+            };
+
+            console.log('Sending Segment data:', segmentData);
+
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            })
+            .then(response => {
+                console.log('Segment API response status:', response.status);
+                if (response.ok) {
+                    console.log('Email opt-in sent to Segment successfully');
+                    return response.text();
+                } else {
+                    console.error('Failed to send email opt-in to Segment:', response.status);
+                    return response.text().then(text => {
+                        console.error('Error response:', text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data) {
+                    console.log('Segment API response:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Error sending email opt-in to Segment:', error);
+            });
+        }
+
+        // Modal functionality
+        function openModal(title, description, price) {
+            console.log(`🔍 openModal called with title: "${title}"`);
+            
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Send Product Viewed event for any featured deal
+            // Try to get pet type from the deal card if possible
+            let petType = undefined;
+            // Find the deal card element that triggered the modal
+            // This function is called inline from the card's onclick, so event is not available, but we can try to find the card by title
+            const featuredDealsGrid = document.getElementById('featured-deals-grid');
+            if (featuredDealsGrid) {
+                const cards = featuredDealsGrid.querySelectorAll('.deal-card');
+                cards.forEach(card => {
+                    const cardTitle = card.querySelector('.deal-title')?.textContent;
+                    if (cardTitle === title) {
+                        petType = card.getAttribute('data-pet-type');
+                    }
+                });
+            }
+            sendProductViewedEvent({
+                name: title,
+                price: parseFloat((price||'').replace(/[^\d.]/g, '')) || undefined,
+                pet_type: petType
+            });
+        }
+
+        // Global variables to track sent events and prevent duplicates
+        let sentEvents = new Set();
+        let lastEventTime = {};
+        let eventCount = { 'Page Viewed': 0, 'Product Viewed': 0 };
+        let isExecuting = { 'Page Viewed': false, 'Product Viewed': false };
+
+        function resetEventTracking() {
+            console.log('🔄 Resetting event tracking for new anonymous ID');
+            lastEventTime = {};
+            eventCount = { 'Page Viewed': 0, 'Product Viewed': 0 };
+            isExecuting = { 'Page Viewed': false, 'Product Viewed': false };
+        }
+
+        function sendProductViewedEvent({ name, price, pet_type }) {
+            const eventType = 'Product Viewed';
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                type: 'track',
+                event: eventType,
+                anonymousId: anonymousId,
+                properties: {
+                    name: name,
+                    price: price,
+                    pet_type: pet_type
+                }
+            };
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close modal when clicking outside of it
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Customer Profile Layer functionality
+        function showProfileLayer() {
+            document.getElementById('customer-profile-layer').classList.add('active');
+            document.getElementById('customer-profile-layer').classList.remove('minimized');
+        }
+
+        function closeProfileLayer() {
+            document.getElementById('customer-profile-layer').classList.remove('active');
+            document.getElementById('customer-profile-layer').classList.remove('minimized');
+        }
+
+        function toggleProfileLayer() {
+            const profileLayer = document.getElementById('customer-profile-layer');
+            const isActive = profileLayer.classList.contains('active');
+            const isMinimized = profileLayer.classList.contains('minimized');
+            
+            if (!isActive) {
+                // If not active, show it expanded
+                profileLayer.classList.add('active');
+                profileLayer.classList.remove('minimized');
+            } else if (isMinimized) {
+                // If minimized, expand it
+                profileLayer.classList.remove('minimized');
+            } else {
+                // If expanded, minimize it
+                profileLayer.classList.add('minimized');
+            }
+        }
+
+        // Show customer profile layer after page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                // No longer auto-show the Anonymous ID dropdown
+            }, 2000); // Show after 2 seconds
+            displayAnonymousID(); // Display the current anonymous ID
+            
+            // Initial content filtering based on current user state
+            setTimeout(() => {
+                checkAndUpdateProfileSections();
+            }, 1000); // Check after 1 second to allow modal data to load
+        });
+
+        // Anonymous ID functionality
+        function getCurrentAnonymousID() {
+            // Try to get from localStorage first
+            let anonymousId = localStorage.getItem('segment_anonymous_id');
+            
+            // If not in localStorage, generate a new one
+            if (!anonymousId) {
+                anonymousId = 'anon_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('segment_anonymous_id', anonymousId);
+            }
+            
+            return anonymousId;
+        }
+
+        function displayAnonymousID() {
+            const displayElement = document.getElementById('anonymous-id-display');
+            const dropdownDisplayElement = document.getElementById('anonymous-id-dropdown-display');
+            const currentId = getCurrentAnonymousID();
+            
+            if (displayElement) {
+                displayElement.textContent = currentId;
+            }
+            if (dropdownDisplayElement) {
+                dropdownDisplayElement.textContent = currentId;
+            }
+            // Check if we should show additional sections
+            checkAndUpdateProfileSections();
+        }
+
+        function checkAndUpdateProfileSections() {
+            // Check if there are additional identifiers by looking at the modal data
+            // For now, we'll check if the modal has any data beyond "Please enter an anonymous ID"
+            const identifiersPanel = document.getElementById('identifiers-panel');
+            const traitsPanel = document.getElementById('traits-panel');
+            
+            let hasAdditionalIdentifiers = false;
+            let identifierCount = 0;
+            
+            // Check if identifiers panel has real data (not just the placeholder message)
+            if (identifiersPanel && !identifiersPanel.innerHTML.includes('Please enter an anonymous ID')) {
+                hasAdditionalIdentifiers = true;
+                // Count the number of identifiers by counting the div elements
+                const identifierDivs = identifiersPanel.querySelectorAll('div[style*="padding:8px 0"]');
+                identifierCount = identifierDivs.length;
+            }
+            
+            // Check if traits panel has real data (not just the placeholder message)
+            if (traitsPanel && !traitsPanel.innerHTML.includes('Please enter an anonymous ID')) {
+                hasAdditionalIdentifiers = true;
+            }
+            
+            // --- New logic for promo banner ---
+            // Check for suppress_promotional_banner trait
+            let suppressPromotionalBanner = false;
+            if (traitsPanel && !traitsPanel.innerHTML.includes('Please enter an anonymous ID')) {
+                const traitDivs = traitsPanel.querySelectorAll('div[style*="padding:8px 0"]');
+                traitDivs.forEach(div => {
+                    const match = div.textContent.match(/suppress_promotional_banner\s*[:=]\s*(true|false)/i);
+                    if (match && match[1].toLowerCase() === 'true') {
+                        suppressPromotionalBanner = true;
+                    }
+                });
+                // Debug
+                console.log('Traits panel HTML:', traitsPanel.innerHTML);
+                console.log('suppressPromotionalBanner:', suppressPromotionalBanner);
+            }
+            // Check for email identifier
+            let hasEmailIdentifier = false;
+            if (identifiersPanel) {
+                const identifierDivs = identifiersPanel.querySelectorAll('div[style*="padding:8px 0"]');
+                identifierDivs.forEach(div => {
+                    if (div.textContent && div.textContent.toLowerCase().includes('email')) {
+                        hasEmailIdentifier = true;
+                    }
+                });
+            }
+            // Always show the original promo banner (SVG and text)
+            const promoBanner = document.querySelector('.custom-promo-banner');
+            if (promoBanner) {
+                promoBanner.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:32px;">
+                        <div style="background:#8ed8f8; border-radius:50%; width:110px; height:110px; display:flex; align-items:center; justify-content:center; margin-left:18px; border:4px solid #333;">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="13" y="20" width="34" height="28" rx="4" stroke="#002868" stroke-width="3" fill="#8ed8f8"/>
+                                <path d="M20 20V16C20 11.5817 23.5817 8 28 8V8C32.4183 8 36 11.5817 36 16V20" stroke="#002868" stroke-width="3"/>
+                                <path d="M30 34L27 37L30 40" stroke="#002868" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M27 37H37" stroke="#002868" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:2px;">
+                            <span style="font-size:1.25rem; font-weight:600; color:#60a5fa; font-style:italic;">Ready in 1 Hour!</span>
+                            <span style="font-size:2.5rem; font-weight:900; letter-spacing:-1px; line-height:1;">10% OFF ORDERS <span style="font-size:2rem; font-weight:700;">$50+</span></span>
+                            <span style="font-size:1.15rem; font-style:italic; margin-top:2px;">Place it online. We pack it. You pick it up in store.</span>
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:center; margin-right:48px;">
+                        <a href="#" style="background:#fff; color:#333; font-weight:600; border:2px solid #fff; border-radius:7px; padding:8px 22px; font-size:1.15rem; text-decoration:none; transition:background 0.2s, color 0.2s; margin-bottom:0; display:inline-block; text-align:center;">SHOP NOW</a>
+                    </div>
+                `;
+            }
+            // --- End new logic for promo banner ---
+            
+            // --- New logic for dynamic Dog Food Sale image ---
+            // Update Dog Food Sale image based on suppress_promotional_banner trait
+            const dogFoodSaleCard = document.querySelector('.deal-card[data-pet-type="dog"]');
+            if (dogFoodSaleCard) {
+                const dogFoodImage = dogFoodSaleCard.querySelector('.deal-img');
+                if (dogFoodImage) {
+                    if (suppressPromotionalBanner) {
+                        dogFoodImage.src = 'images/dog_food_for_sale.png';
+                        console.log('🖼️ Switched Dog Food Sale image to dog_food_for_sale.png (suppress_promotional_banner = true)');
+                    } else {
+                        dogFoodImage.src = 'images/dog-food.jpg';
+                        console.log('🖼️ Using default Dog Food Sale image (dog-food.jpg)');
+                    }
+                }
+            }
+            // --- End new logic for dynamic Dog Food Sale image ---
+            
+            // Show/hide sections based on whether additional identifiers exist
+            const customerInfoSection = document.getElementById('customer-info-section');
+            const petInfoSection = document.getElementById('pet-info-section');
+            const shoppingHistorySection = document.getElementById('shopping-history-section');
+            const loyaltySection = document.getElementById('loyalty-section');
+            
+            // Hide dog deals in pet-type-deals if zero or one identifier
+            const petTypeDealsGrid = document.getElementById('pet-type-deals-grid');
+            if (petTypeDealsGrid) {
+                // Always hide all dog deals if zero or one identifier
+                const dogDealCards = Array.from(petTypeDealsGrid.querySelectorAll('.deal-card[data-pet-type="dog"]'));
+                if (identifierCount <= 1) {
+                    dogDealCards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                } else {
+                    dogDealCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                }
+            }
+
+            // Hide loyalty points in featured deal cards if zero or one identifier
+            const featuredDealsGrid = document.getElementById('featured-deals-grid');
+            if (featuredDealsGrid) {
+                const loyaltyPoints = featuredDealsGrid.querySelectorAll('.deal-loyalty');
+                console.log('[Debug] Identifier count:', identifierCount);
+                console.log('[Debug] Found loyalty points:', loyaltyPoints.length);
+                if (identifierCount <= 1) {
+                    console.log('[Debug] Hiding loyalty points (identifierCount <= 1)');
+                    loyaltyPoints.forEach(el => {
+                        el.style.display = 'none';
+                    });
+                } else {
+                    console.log('[Debug] Showing loyalty points (identifierCount > 1)');
+                    loyaltyPoints.forEach(el => {
+                        el.style.display = 'flex';
+                    });
+                }
+            }
+
+            if (hasAdditionalIdentifiers) {
+                // Show all sections when additional identifiers are present
+                if (customerInfoSection) customerInfoSection.style.display = 'block';
+                if (petInfoSection) petInfoSection.style.display = 'block';
+                if (shoppingHistorySection) shoppingHistorySection.style.display = 'block';
+                if (loyaltySection) loyaltySection.style.display = 'block';
+                
+                // Only filter to dog deals if there are 2 or more identifiers
+                if (identifierCount >= 2) {
+                    console.log(`🐕 Found ${identifierCount} identifiers, filtering to dog deals`);
+                    filterPageContentForDogOwner();
+                } else {
+                    console.log(`👤 Found ${identifierCount} identifiers, showing all deals`);
+                    showAllDeals();
+                }
+            } else {
+                // Hide sections when only anonymous ID is known
+                if (customerInfoSection) customerInfoSection.style.display = 'none';
+                if (petInfoSection) petInfoSection.style.display = 'none';
+                if (shoppingHistorySection) shoppingHistorySection.style.display = 'none';
+                if (loyaltySection) loyaltySection.style.display = 'none';
+                
+                // Show all deals for anonymous users
+                showAllDeals();
+            }
+        }
+
+        // Function to filter page content for dog owners
+        function filterPageContentForDogOwner() {
+            console.log('🐕 Filtering page content for dog owner...');
+            
+            // Filter featured deals - show only dog deals
+            const featuredDealsGrid = document.getElementById('featured-deals-grid');
+            if (featuredDealsGrid) {
+                const dealCards = featuredDealsGrid.querySelectorAll('.deal-card');
+                dealCards.forEach(card => {
+                    const petType = card.getAttribute('data-pet-type');
+                    if (petType === 'dog') {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Don't filter pet type deals - keep all categories visible
+            // The pet type deals should always show all categories (dog, cat, fish, bird, reptile, small pet, pharmacy, services)
+            
+            // Update section titles to reflect personalization
+            updateSectionTitlesForDogOwner();
+        }
+
+        // Function to show all deals for anonymous users
+        function showAllDeals() {
+            console.log('👤 Showing all deals for anonymous user...');
+            
+            // Show all featured deals
+            const featuredDealsGrid = document.getElementById('featured-deals-grid');
+            if (featuredDealsGrid) {
+                const dealCards = featuredDealsGrid.querySelectorAll('.deal-card');
+                dealCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+            
+            // Pet type deals should always show all categories, no filtering needed
+            
+            // Reset section titles to default
+            resetSectionTitles();
+        }
+
+        // Function to update section titles for dog owners
+        function updateSectionTitlesForDogOwner() {
+            const featuredDealsTitle = document.querySelector('.featured-deals .deals-title');
+            
+            if (featuredDealsTitle) {
+                featuredDealsTitle.textContent = 'Featured Dog Deals';
+            }
+            
+            // Don't change the Deals By Pet Type title - it should always show "Deals By Pet Type"
+        }
+
+        // Function to reset section titles to default
+        function resetSectionTitles() {
+            const featuredDealsTitle = document.querySelector('.featured-deals .deals-title');
+            
+            if (featuredDealsTitle) {
+                featuredDealsTitle.textContent = 'Featured Deals';
+            }
+            
+            // Don't change the Deals By Pet Type title - it should always show "Deals By Pet Type"
+        }
+
+        // Function to update loyalty points display based on user status
+        function updateLoyaltyPointsDisplay(isKnownUser) {
+            console.log('💎 Updating loyalty points display for user type:', isKnownUser ? 'known' : 'anonymous');
+            const loyaltySections = document.querySelectorAll('.profile-section');
+            let loyaltySection = null;
+            loyaltySections.forEach(section => {
+                const title = section.querySelector('.profile-section-title');
+                if (title && title.textContent.includes('Loyalty Points')) {
+                    loyaltySection = section;
+                }
+            });
+            if (!loyaltySection) return;
+            const loyaltyItems = loyaltySection.querySelectorAll('.profile-item');
+            if (loyaltyItems.length >= 3) {
+                if (isKnownUser) {
+                    // For known users, show realistic loyalty points based on lifetime value
+                    const lifetimeValue = 1247.50; // From shopping history
+                    const basePoints = Math.floor(lifetimeValue * 2.5); // 2.5 points per dollar spent
+                    const monthlyPoints = Math.floor(basePoints * 0.125); // 12.5% of total as monthly
+                    const currentBalance = basePoints - Math.floor(Math.random() * 500); // Subtract some spent points
+                    const nextReward = Math.ceil(currentBalance / 1000) * 1000; // Next 1000-point milestone
+                    loyaltyItems[0].querySelector('.profile-value').innerHTML = `★ ${currentBalance.toLocaleString()} points`;
+                    loyaltyItems[1].querySelector('.profile-value').textContent = `+${monthlyPoints} points`;
+                    loyaltyItems[2].querySelector('.profile-value').textContent = `$${Math.floor(nextReward/100)} off at ${nextReward.toLocaleString()} points`;
+                } else {
+                    // For anonymous users, show minimal points
+                    loyaltyItems[0].querySelector('.profile-value').innerHTML = `★ 0 points`;
+                    loyaltyItems[1].querySelector('.profile-value').textContent = `+0 points`;
+                    loyaltyItems[2].querySelector('.profile-value').textContent = `Sign up to earn points`;
+                }
+            }
+        }
+
+        function setCustomAnonymousID() {
+            const customId = document.getElementById('custom-anonymous-id').value.trim();
+            if (!customId) {
+                console.log('Please enter a custom anonymous ID');
+                return;
+            }
+            anonymousId = customId;
+            localStorage.setItem('anonymousId', anonymousId);
+            document.getElementById('anonymous-id-window-display').textContent = anonymousId;
+            document.getElementById('custom-anonymous-id').value = '';
+            console.log('Anonymous ID has been set to: ' + customId);
+        }
+
+        function resetAnonymousID() {
+            const newAnonymousId = 'anon_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+            anonymousId = newAnonymousId;
+            localStorage.setItem('anonymousId', anonymousId);
+            document.getElementById('anonymous-id-window-display').textContent = anonymousId;
+            document.getElementById('custom-anonymous-id').value = '';
+            console.log('Anonymous ID has been reset to: ' + newAnonymousId);
+        }
+
+        // Send page view to Segment API
+        function sendPageViewToSegment(anonymousId) {
+            const currentTime = Date.now();
+            const eventType = 'Page Viewed';
+            
+            // Prevent multiple simultaneous executions
+            if (isExecuting[eventType]) {
+                console.log(`⚠️ ${eventType} event already executing, skipping...`);
+                return;
+            }
+            
+            // Prevent duplicate events within 10 seconds
+            if (lastEventTime[eventType] && (currentTime - lastEventTime[eventType]) < 10000) {
+                console.log(`⚠️ ${eventType} event already sent recently (${Math.round((currentTime - lastEventTime[eventType])/1000)}s ago), skipping...`);
+                return;
+            }
+            
+            // Set executing flag
+            isExecuting[eventType] = true;
+            
+            const segmentData = {
+                "type": "track",
+                "event": eventType,
+                "anonymousId": anonymousId,
+                "properties": {
+                    "page_name": "Grooming Services",
+                    "utm_medium": "email",
+                    "utm_source": "loyalty_newsletter",
+                    "pet_type": "dog",
+                    "campaign_name": "Spring Grooming Specials"
+                },
+                "context": {
+                    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
+                    "ip": "192.0.2.1",
+                    "locale": "en-US",
+                    "campaign": {
+                        "name": "spring_grooming_2025",
+                        "source": "loyalty_newsletter",
+                        "medium": "email"
+                    }
+                }
+            };
+
+            eventCount[eventType]++;
+            console.log(`📤 Sending ${eventType} event #${eventCount[eventType]} to Segment:`, segmentData);
+
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            })
+            .then(response => {
+                console.log(`${eventType} API response status:`, response.status);
+                if (response.ok) {
+                    console.log(`✅ ${eventType} event #${eventCount[eventType]} sent to Segment successfully`);
+                    lastEventTime[eventType] = currentTime;
+                    return response.text();
+                } else {
+                    console.error(`❌ Failed to send ${eventType} event to Segment:`, response.status);
+                    return response.text().then(text => {
+                        console.error('Error response:', text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data) {
+                    console.log(`${eventType} API response:`, data);
+                }
+            })
+            .catch(error => {
+                console.error(`❌ Error sending ${eventType} event to Segment:`, error);
+            })
+            .finally(() => {
+                // Reset executing flag
+                isExecuting[eventType] = false;
+            });
+        }
+
+        // Function to be called when modal data updates
+        function updateProfileSectionsFromModal() {
+            setTimeout(() => {
+                checkAndUpdateProfileSections();
+            }, 100);
+        }
+
+        // Modal functions (moved outside DOMContentLoaded for global access)
+        function showModal() {
+            console.log('Opening modal and starting polling');
+            console.log('Anonymous ID at modal open:', getCurrentAnonymousID());
+            if (modal && openBtn) {
+                modal.style.display = 'flex';
+                openBtn.style.display = 'none';
+                loadAllSegmentData(); // Load initial data
+                startPolling(); // Start real-time updates
+            }
+        }
+        
+        function hideModal() {
+            console.log('Closing modal and stopping polling');
+            if (modal && openBtn) {
+                modal.style.display = 'none';
+                openBtn.style.display = 'flex';
+                stopPolling();
+            }
+        }
+
+        // Global function for refreshing modal data
+        window.refreshModalData = function() {
+            console.log('Manual refresh triggered');
+            if (typeof loadAllSegmentData === 'function') {
+                loadAllSegmentData();
+            } else {
+                console.log('Modal not ready yet, will refresh when ready');
+            }
+        };
+
+        function loadAllSegmentData() {
+            console.log('Loading all segment data...');
+            console.log('Current anonymous ID:', getCurrentAnonymousID());
+            console.log('Panels available:', panels);
+            
+            fetchAndDisplay('http://localhost:3001/segment-identifiers', panels.identifiers, 'Digital Identity', true);
+            fetchAndDisplay('http://localhost:3001/segment-traits', panels.traits, 'Personalization', false, true);
+            fetchAndDisplay('http://localhost:3001/segment-events', panels.events, 'Behavior', false, false, true);
+        }
+
+        // Syntax highlight JSON
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function renderSection(title, data, isIdentifiers, isTraits, isEvents) {
+            if (isIdentifiers) {
+                // Support Segment response: { data: [ {type, id, ...}, ... ] }
+                let idsArr = [];
+                if (Array.isArray(data)) {
+                    idsArr = data;
+                } else if (data && Array.isArray(data.data)) {
+                    idsArr = data.data;
+                } else if (data && Array.isArray(data.external_ids)) {
+                    idsArr = data.external_ids;
+                }
+                
+                let items = '';
+                if (idsArr.length > 0) {
+                    // Show all identifiers from the backend, including anonymous_id
+                    items = idsArr.map(item =>
+                        `<div style="padding:8px 0;border-bottom:1px solid #eee;"><span style="color:#60a5fa;font-weight:600;font-size:1rem;font-family:inherit;">${item.type}</span>: <span style="color:#181818;font-size:1rem;font-family:inherit;">${item.id}</span></div>`
+                    ).join('');
+                } else {
+                    // If no identifiers found, show a message
+                    items = '<div style="color:#666;font-style:italic;text-align:center;padding:20px;">No identifiers found</div>';
+                }
+                
+                return `<div class="modal-section"><h3>${title}</h3>${items}</div>`;
+            } else if (isTraits) {
+                // Show only the traits object as key: value pairs
+                let traitsObj = {};
+                if (data && typeof data.traits === 'object' && data.traits !== null) {
+                    traitsObj = data.traits;
+                } else if (data && typeof data === 'object' && data !== null) {
+                    traitsObj = data;
+                }
+                const keys = Object.keys(traitsObj);
+                let items = '';
+                if (keys.length > 0) {
+                    items = keys.map(key =>
+                        `<div style="padding:8px 0;border-bottom:1px solid #eee;"><span style="color:#60a5fa;font-weight:600;font-size:1rem;font-family:inherit;">${getDisplayName(key)}</span>: <span style="color:#181818;font-size:1rem;font-family:inherit;">${traitsObj[key]}</span></div>`
+                    ).join('');
+                } else {
+                    items = '<div style="color:#666;font-style:italic;text-align:center;padding:20px;">Please enter an anonymous ID</div>';
+                }
+                return `<div class="modal-section"><h3>${title}</h3>${items}</div>`;
+            } else if (isEvents) {
+                // Show only the event property, expandable to show full JSON
+                let eventsArr = [];
+                if (Array.isArray(data)) {
+                    eventsArr = data;
+                } else if (data && Array.isArray(data.data)) {
+                    eventsArr = data.data;
+                }
+                // Filter out 'trait computed' events
+                eventsArr = eventsArr.filter(event => (event.event || '').toLowerCase() !== 'trait computed');
+                let items = '';
+                if (eventsArr.length > 0) {
+                    items = eventsArr.map((event, idx) =>
+                        `<div class="event-row" style="padding:8px 0;border-bottom:1px solid #eee;">
+                            <span class="event-toggle" data-idx="${idx}" style="color:#60a5fa;font-weight:600;cursor:pointer;font-size:1rem;font-family:inherit;">${event.event}</span>
+                            <div class="event-json" id="event-json-${idx}" style="display:none;margin-top:8px;"><pre>${syntaxHighlight(event)}</pre></div>
+                        </div>`
+                    ).join('');
+                } else {
+                    items = '<div style="color:#666;font-style:italic;text-align:center;padding:20px;">Please enter an anonymous ID</div>';
+                }
+                return `<div class="modal-section"><h3>${title}</h3>${items}</div>`;
+            } else {
+                return `<div class="modal-section"><h3>${title}</h3><pre>${syntaxHighlight(data)}</pre></div>`;
+            }
+        }
+
+        function fetchAndDisplay(endpoint, panel, title, isIdentifiers, isTraits, isEvents) {
+            if (!panel) return;
+            
+            const anonymousId = getCurrentAnonymousID();
+            const urlWithId = `${endpoint}?anonymous_id=${encodeURIComponent(anonymousId)}`;
+            
+            console.log(`Fetching from: ${urlWithId}`);
+            
+            fetch(urlWithId)
+                .then(res => {
+                    console.log(`Response status for ${endpoint}:`, res.status);
+                    if (!res.ok) {
+                        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(`Data received for ${endpoint}:`, data);
+                    if (loading) loading.style.display = 'none';
+                    panel.innerHTML = renderSection(title, data, isIdentifiers, isTraits, isEvents);
+                    
+                    // Add expand/collapse logic for events
+                    if (isEvents) {
+                        // Track open state for each event index
+                        if (!window.openEventRows) window.openEventRows = {};
+                        const toggles = panel.querySelectorAll('.event-toggle');
+                        toggles.forEach(toggle => {
+                            const idx = toggle.getAttribute('data-idx');
+                            const jsonDiv = panel.querySelector(`#event-json-${idx}`);
+                            // Restore open state after re-render
+                            if (window.openEventRows[idx]) {
+                                jsonDiv.style.display = 'block';
+                            } else {
+                                jsonDiv.style.display = 'none';
+                            }
+                            toggle.addEventListener('click', function() {
+                                if (jsonDiv.style.display === 'none') {
+                                    jsonDiv.style.display = 'block';
+                                    window.openEventRows[idx] = true;
+                                } else {
+                                    jsonDiv.style.display = 'none';
+                                    window.openEventRows[idx] = false;
+                                }
+                            });
+                        });
+                    }
+                    
+                    // Call checkAndUpdateProfileSections after traits or identifiers are updated
+                    if (isTraits || isIdentifiers) {
+                        console.log(`🔄 Panel updated (${isTraits ? 'traits' : 'identifiers'}), calling checkAndUpdateProfileSections in 100ms`);
+                        setTimeout(() => {
+                            checkAndUpdateProfileSections();
+                        }, 100);
+                    }
+                })
+                .catch(err => {
+                    console.error(`Error fetching from ${endpoint}:`, err);
+                    if (loading) loading.style.display = 'none';
+                    // Only show error message if this is the first load and we have no existing data
+                    const hasExistingData = panel.innerHTML && !panel.innerHTML.includes('Please enter an anonymous ID');
+                    if (!hasExistingData) {
+                        panel.innerHTML = `<div style="color:#666;font-style:italic;text-align:center;padding:20px;">Please enter an anonymous ID</div>`;
+                    } else {
+                        console.log(`Keeping existing data for ${endpoint} due to error`);
+                    }
+                });
+        }
+
+        function renderWarehousePanel() {
+            if (!panels || !panels.warehouse) return;
+            panels.warehouse.innerHTML = `
+                <div class="modal-section"><h3>ML & Enrichment</h3></div>
+                <div class="modal-section"><h3>Accounts</h3></div>
+                <div class="modal-section"><h3>Products</h3></div>
+                <div class="modal-section"><h3>Leads</h3></div>
+                <div class="modal-section"><h3>Prospects</h3></div>
+                <div class="modal-section"><h3>Services</h3></div>
+                <div class="modal-section"><h3>Orders</h3></div>
+                <div class="modal-section"><h3>Purchases</h3></div>
+                <div class="modal-section"><h3>Transactions</h3></div>
+                <div class="modal-section"><h3>Partners</h3></div>
+            `;
+        }
+
+        // Attach event listeners for expandable content
+        function attachEventListeners() {
+            document.querySelectorAll('.event-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const idx = this.getAttribute('data-idx');
+                    const jsonDiv = document.getElementById(`event-json-${idx}`);
+                    if (jsonDiv) {
+                        jsonDiv.style.display = jsonDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+            });
+        }
+
+        // Map trait keys to display names
+        function getDisplayName(key) {
+            if (key === 'abondon_cart_list') {
+                return 'abondon_cart';
+            }
+            if (key.endsWith('_list')) {
+                return key.replace(/_list$/, '');
+            }
+            return key;
+        }
+
+        // Polling functionality
+        let pollingInterval;
+
+        function startPolling() {
+            console.log('Starting polling...');
+            // Poll every 1 second
+            pollingInterval = setInterval(() => {
+                loadAllSegmentData();
+            }, 1000);
+        }
+
+        function stopPolling() {
+            console.log('Stopping polling...');
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+                pollingInterval = null;
+            }
+        }
+
+    // Anonymous ID Window functionality
+    function toggleAnonymousIDWindow() {
+        const window = document.getElementById('anonymous-id-window');
+        const toggleBtn = document.getElementById('anonymous-id-toggle-btn');
+        const content = document.getElementById('anonymous-id-content');
+        
+        if (window.style.display === 'none' || !window.style.display) {
+            // Show the window in minimized state
+            window.style.display = 'block';
+            toggleBtn.style.display = 'none';
+            content.style.display = 'none';
+            // Slide in from off-screen
+            setTimeout(() => {
+                window.style.right = '460px';
+            }, 10);
+        } else if (content.style.display === 'none') {
+            // Expand the window
+            content.style.display = 'block';
+        } else {
+            // Minimize the window
+            content.style.display = 'none';
+        }
+    }
+
+    function closeAnonymousIDWindow() {
+        const window = document.getElementById('anonymous-id-window');
+        const toggleBtn = document.getElementById('anonymous-id-toggle-btn');
+        const content = document.getElementById('anonymous-id-content');
+        
+        // Slide out to off-screen
+        window.style.right = '-400px';
+        
+        // After animation completes, hide the window and show toggle button
+        setTimeout(() => {
+            window.style.display = 'none';
+            toggleBtn.style.display = 'flex';
+            content.style.display = 'none';
+        }, 300);
+    }
+
+        // Cart logic
+        let cart = [];
+        function addToCart() {
+            const title = document.getElementById('modal-title').textContent;
+            const price = document.getElementById('modal-price').textContent;
+            const item = { title, price, quantity: 1 };
+            
+            // Check if item already exists in cart
+            const existingItemIndex = cart.findIndex(cartItem => cartItem.title === title);
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push(item);
+            }
+            
+            renderCartItems();
+            updateCartButton();
+            closeModal();
+            sendProductAddedEvent();
+            console.log('Added to cart: ' + title);
+        }
+        function sendProductAddedEvent() {
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                type: 'track',
+                event: 'Product Added',
+                anonymousId: anonymousId,
+                properties: {
+                    product_id: 'wh-dog-joint-treats-90ct',
+                    name: 'WholeHearted Hip & Joint Support Dog Treats - 90 ct',
+                    category: 'Dog Treats',
+                    brand: 'WholeHearted',
+                    price: 24.99,
+                    quantity: 1,
+                    pet_type: 'dog',
+                    pet_age: 10,
+                    cart_value: 24.99,
+                    loyalty_member: true
+                }
+            };
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+        // Cart modal logic
+        function openCartModal() {
+            renderCartItems();
+            document.getElementById('cart-modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCartModal() {
+            document.getElementById('cart-modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function renderCartItems() {
+            const list = document.getElementById('cart-items-list');
+            if (cart.length === 0) {
+                list.innerHTML = '<div style="color:#888;text-align:center;">Your cart is empty.</div>';
+                document.getElementById('checkout-btn').disabled = true;
+            } else {
+                list.innerHTML = cart.map((item, i) => `<div style='display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;'><span>${item.title}</span><span>${item.price}</span><button onclick='removeCartItem(${i})' style='background:none;border:none;color:#e31837;font-size:1.1rem;cursor:pointer;' title='Remove'>&times;</button></div>`).join('');
+                document.getElementById('checkout-btn').disabled = false;
+            }
+        }
+        function removeCartItem(idx) {
+            cart.splice(idx, 1);
+            renderCartItems();
+        }
+        // Checkout modal logic
+        function openCheckoutModal() {
+            // Close the cart modal first
+            closeCartModal();
+            // Then open the checkout modal
+            document.getElementById('checkout-modal-overlay').classList.add('active');
+            // Pre-fill phone and email if available
+            const lastPhone = localStorage.getItem('last_checkout_phone') || '';
+            const lastEmail = localStorage.getItem('last_checkout_email') || '';
+            document.getElementById('phone').value = lastPhone;
+            document.getElementById('checkout-email').value = lastEmail;
+            // Pre-fill credit card number with a new random 16-digit number
+            document.getElementById('cc-number').value = randomCreditCardNumber();
+        }
+        // Helper to generate a random 16-digit credit card number (Visa-style)
+        function randomCreditCardNumber() {
+            let cc = '4'; // Visa cards start with 4
+            for (let i = 1; i < 16; i++) {
+                cc += Math.floor(Math.random() * 10);
+            }
+            // Format as 1234 5678 9012 3456
+            return cc.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+        }
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal-overlay').classList.remove('active');
+            // Reset the form when closing
+            document.getElementById('checkout-form').style.display = 'block';
+            document.getElementById('checkout-success').style.display = 'none';
+            document.getElementById('checkout-form').reset();
+        }
+        function handleCheckout(event) {
+            event.preventDefault();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('checkout-email').value.trim();
+            // Save to localStorage
+            localStorage.setItem('last_checkout_phone', phone);
+            localStorage.setItem('last_checkout_email', email);
+            // Fake validation
+            const cc = document.getElementById('cc-number').value.trim();
+            const emailOptInChecked = document.getElementById('checkout-email-optin').checked;
+            if (!cc || !phone || !email) return false;
+            // Show thank you
+            document.getElementById('checkout-form').style.display = 'none';
+            document.getElementById('checkout-success').style.display = 'block';
+            // Send events to Segment
+            console.log('[Segment] About to send Order Completed event');
+            sendOrderCompletedEvent(email, phone);
+            console.log('[Segment] Order Completed event sent (function called)');
+            if (emailOptInChecked) {
+                sendCheckoutEmailOptInEvent(email);
+            }
+            sendIdentifyCall(email, phone);
+            // Clear cart
+            cart = [];
+            updateCartButton();
+            // Close the modal after 2.5 seconds
+            setTimeout(() => {
+                closeCheckoutModal();
+            }, 2500);
+            return false;
+        }
+        function sendIdentifyCall(email, phone) {
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                anonymousId: anonymousId,
+                traits: {
+                    email: email,
+                    phone: phone,
+                    location: "Denver, CO",
+                    ageRange: "25-34",
+                    preferredLanguage: "English",
+                    emailConsent: true,
+                    smsConsent: true,
+                    loyaltyTier: "Gold",
+                    membershipStatus: "Active",
+                    preferredContactTime: "Evenings",
+                    predictive_purchase_score: 76
+                }
+            };
+            fetch('https://api.segment.io/v1/identify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+        function sendOrderCompletedEvent(email, phone) {
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                type: 'track',
+                event: 'Order Completed',
+                anonymousId: anonymousId,
+                properties: {
+                    email: email,
+                    phone: phone,
+                    price: 55,
+                    services: [
+                        { name: 'Bath & Brush' },
+                        { name: 'Nail Trim' }
+                    ],
+                    pet_name: 'Obie',
+                    pet_type: 'dog',
+                    store_location: 'San Diego - Sports Arena Blvd',
+                    appointment_date: '2025-06-12T14:00:00-07:00',
+                    event_name: 'Booked Grooming Appointment',
+                    order_id: 'groom-0825-xyz'
+                },
+                context: {
+                    library: {
+                        name: 'custom-api',
+                        version: '1.0.0'
+                    }
+                },
+                integrations: {}
+            };
+            console.log('[Segment] Sending Order Completed event payload:', segmentData);
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+        function updateCartButton() {
+            // Optionally update cart icon with count
+            const cartBtn = document.querySelector('.icon-btn[title="Cart"]');
+            if (cartBtn) {
+                let badge = cartBtn.querySelector('.cart-badge');
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'cart-badge';
+                    badge.style.cssText = 'position:absolute;top:2px;right:2px;background:#e31837;color:#fff;border-radius:50%;font-size:0.8rem;padding:2px 6px;line-height:1;';
+                    cartBtn.style.position = 'relative';
+                    cartBtn.appendChild(badge);
+                }
+                badge.textContent = cart.length > 0 ? cart.length : '';
+            }
+        }
+        // Open cart modal on cart icon click
+        document.querySelector('.icon-btn[title="Cart"]').onclick = openCartModal;
+        // Send purchase completed event
+        function sendPurchaseCompletedEvent(email, phone, items) {
+            if (!items || items.length === 0) return;
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                type: 'track',
+                event: 'Purchase Completed',
+                anonymousId: anonymousId,
+                properties: {
+                    email: email,
+                    phone: phone,
+                    items: items,
+                    total: items.map(i => parseFloat(i.price.replace(/[^\d.]/g, '')) || 0).reduce((a, b) => a + b, 0)
+                }
+            };
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+
+        function handleCheckoutEmailOptIn() {
+            const checkbox = document.getElementById('checkout-email-optin');
+            if (checkbox.checked) {
+                const email = document.getElementById('checkout-email').value.trim();
+                if (!email) {
+                    alert('Please enter your email before opting in.');
+                    checkbox.checked = false;
+                    return;
+                }
+                sendCheckoutEmailOptInEvent(email);
+            }
+        }
+        function sendCheckoutEmailOptInEvent(email) {
+            const anonymousId = getCurrentAnonymousID();
+            const segmentData = {
+                type: 'track',
+                event: 'Email Opted In',
+                anonymousId: anonymousId,
+                properties: {
+                    opt_in_source: 'Pet Profile Sign-Up',
+                    email: email,
+                    loyalty_member: true,
+                    pet_type: 'dog',
+                    store_preference: 'Main Pets Store'
+                }
+            };
+            fetch('https://api.segment.io/v1/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('IjbKabqoeWwVX6Up7tpHVEZFUgCzd5Gq:')
+                },
+                body: JSON.stringify(segmentData)
+            }).then(r => r.text()).then(console.log).catch(console.error);
+        }
+
+        function setCustomAnonymousIDFromDropdown() {
+            const customIdInput = document.getElementById('custom-anonymous-id-dropdown');
+            const customId = customIdInput.value.trim();
+            
+            if (!customId) {
+                alert('Please enter a custom anonymous ID');
+                return;
+            }
+            
+            // Store the custom ID
+            localStorage.setItem('segment_anonymous_id', customId);
+            
+            // Reset event tracking for new anonymous ID
+            resetEventTracking();
+            
+            // Update the display
+            displayAnonymousID();
+            
+            // Clear the input field
+            customIdInput.value = '';
+            
+            // Show confirmation
+            alert('Anonymous ID has been set to: ' + customId);
+            
+            // Refresh modal data with new anonymous ID after a short delay
+            setTimeout(() => {
+                refreshModalData();
+                // Update content filtering after modal data refreshes
+                setTimeout(() => {
+                    checkAndUpdateProfileSections();
+                }, 1000);
+            }, 500);
+        }
+
+        function resetAnonymousIDFromDropdown() {
+            console.log('🔄 resetAnonymousIDFromDropdown function called');
+            
+            // Generate a new anonymous ID
+            const newAnonymousId = 'anon_' + Math.random().toString(36).substr(2, 9);
+            
+            // Store the new ID
+            localStorage.setItem('segment_anonymous_id', newAnonymousId);
+            
+            // Reset event tracking for new anonymous ID
+            resetEventTracking();
+            
+            // Update the display
+            displayAnonymousID();
+            
+            // Show confirmation
+            console.log('Anonymous ID has been reset to: ' + newAnonymousId);
+            
+            // Send page view tracking with new anonymous ID
+            sendPageViewToSegment(newAnonymousId);
+            
+            // Refresh modal data with new anonymous ID after a short delay
+            setTimeout(() => {
+                refreshModalData();
+                // Update content filtering after modal data refreshes
+                setTimeout(() => {
+                    checkAndUpdateProfileSections();
+                }, 1000);
+            }, 500);
+        }
+
+        // Anonymous ID Dropdown functionality
+        function toggleAnonymousIDDropdown() {
+            const dropdown = document.getElementById('anonymous-id-dropdown');
+            
+            if (dropdown.style.display === 'none' || !dropdown.style.display) {
+                // Show the dropdown
+                dropdown.style.display = 'block';
+                // Update the display with current ID
+                displayAnonymousID();
+            } else {
+                // Hide the dropdown
+                dropdown.style.display = 'none';
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('anonymous-id-dropdown');
+            const toggleBtn = document.getElementById('anonymous-id-toggle-btn');
+            
+            if (dropdown && dropdown.style.display === 'block') {
+                if (!dropdown.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            }
+        });
+    </script>
+
+    <!-- Modal Toggle Button -->
+    <button id="open-modal-btn" style="position:fixed;bottom:32px;right:32px;z-index:1001;background:#111;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+        &#9776;
+    </button>
+
+    <!-- Modal -->
+    <div id="segment-modal" style="display:none;position:fixed;bottom:32px;right:32px;width:420px;max-width:95vw;height:540px;max-height:90vh;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);z-index:1002;flex-direction:column;overflow:hidden;flex:1;">
+        <div style="background:#181818;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;font-size:1.2rem;">Composable Profile Layer</span>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button id="close-modal-btn" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">&times;</button>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;background:#f6f7fa;border-radius:10px 10px 0 0;border-bottom:1px solid #eee;padding:0 8px 0 8px;margin-bottom:2px;">
+            <button class="modal-tab active" data-tab="identifiers">Digital Identity</button>
+            <button class="modal-tab" data-tab="traits">Personalization</button>
+            <button class="modal-tab" data-tab="events">Behavior</button>
+            <button class="modal-tab" data-tab="warehouse">Warehouse Data</button>
+        </div>
+        <div id="modal-content" style="flex:1;overflow:auto;background:#fafbfc;padding:18px 16px 16px 16;">
+            <div class="modal-panel" id="identifiers-panel"></div>
+            <div class="modal-panel" id="traits-panel" style="display:none"></div>
+            <div class="modal-panel" id="events-panel" style="display:none; max-height:340px; overflow-y:auto;"></div>
+            <div class="modal-panel" id="warehouse-panel" style="display:none"></div>
+        </div>
+        <div id="modal-loading" style="display:none;text-align:center;padding:12px;color:#888;">Loading...</div>
+    </div>
+</body>
+</html> 
+</html> 

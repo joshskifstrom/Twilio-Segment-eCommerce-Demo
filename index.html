@@ -845,6 +845,10 @@
             }
         }
     </style>
+    <script>
+      // Set SEGMENT_PROXY_URL from environment or fallback to localhost
+      window.SEGMENT_PROXY_URL = window.SEGMENT_PROXY_URL || 'http://localhost:3001';
+    </script>
 </head>
 <body>
     <!-- Anonymous ID Dropdown Panel -->
@@ -2002,10 +2006,10 @@
             console.log('Loading all segment data...');
             console.log('Current anonymous ID:', getCurrentAnonymousID());
             console.log('Panels available:', panels);
-            
-            fetchAndDisplay('http://localhost:3001/segment-identifiers', panels.identifiers, 'Digital Identity', true);
-            fetchAndDisplay('http://localhost:3001/segment-traits', panels.traits, 'Personalization', false, true);
-            fetchAndDisplay('http://localhost:3001/segment-events', panels.events, 'Behavior', false, false, true);
+            const baseUrl = window.SEGMENT_PROXY_URL || 'http://localhost:3001';
+            fetchAndDisplay(`${baseUrl}/segment-identifiers`, panels.identifiers, 'Digital Identity', true);
+            fetchAndDisplay(`${baseUrl}/segment-traits`, panels.traits, 'Personalization', false, true);
+            fetchAndDisplay(`${baseUrl}/segment-events`, panels.events, 'Behavior', false, false, true);
         }
 
         // Syntax highlight JSON
